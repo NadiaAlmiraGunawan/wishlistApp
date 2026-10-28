@@ -1,32 +1,32 @@
-import { Geist, Geist_Mono, Outfit, Roboto } from "next/font/google"
+import type { Metadata } from "next";
+import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "../components/navbar";
 
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
-
-const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
-
-const outfit = Outfit({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
+export const metadata: Metadata = {
+  title: "Wishly",
+  description: "Catat, atur prioritas, dan pantau progres wishlist kamu.",
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", outfit.variable, robotoHeading.variable)}
-    >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="id" suppressHydrationWarning>
+      <body className="min-h-screen bg-[#F8F9FA] text-foreground antialiased">
+        <ThemeProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar /> {/* Navbar di atas */}
+            <main className="flex-1">
+              {children}
+            </main>
+          </div>
+          <Toaster position="top-right" richColors />
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
